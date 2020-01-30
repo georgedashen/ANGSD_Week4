@@ -1,1 +1,1 @@
-This is a repository for homework in week2 in ANGSD class
+This is a repository for homework in week4 in ANGSD class
