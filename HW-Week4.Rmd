@@ -1,0 +1,65 @@
+---
+title: "HW-Week4"
+author: "Zhuoyang Chen"
+date: "January 29, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Questions
+###1. Which base call is more likely to be incorrect - one with a Phred score of # or one with a Phred score of ; ?
+A Phred score of "#" is more likely to be incorrect. Noticed that only Phred33 have score "**#**" and "**;**". In Phred33, "**#**" represents ASCII code **35** and Q value **2**, which means error probability of **0.63**, while "**;**" represents **59** and Q value **26**, which means a lower error probability of **0.00251**.
+
+###2. Explain at least 2 reasons for base calling uncertainties and how they can be avoided/alleviated.
+a. Interfering signals from neighbouring clusters. This is hard to be 100% avoided but lower the amount of DNA loaded on lanes can alleviate the noise, while ensuring the minimum concentration for sequencing.
+
+b. Decaying chemicals which would affect the nucleotides binding efficiency, fluorescence group cleavage efficiency etc. Inspect the machine and reload fresh reaction agents every work would help alleviate the problem.
+
+###3. What is the baseline uncertainty that Illumina attaches to its base calls? In other words, how likely is it that a base call is wrong even if it got the highest possible Phred score of 41? How many bases can you therefore expect to be wrong in a file with 1 million 50bp-long reads? Does this concern you?
+Since the highest Phred score is 41, we transform it back to error probability as below.
+
+```{r}
+#-10*log(P) = Q (Phred without offset)
+Phred = 41
+(Prob = 10^(-Phred/10))
+```
+
+The result shows a error rate of **7.94\*10^(-5)**.
+
+A million 50bp-long reads totally have 10^6 \* 50 = 5 \* 10^7 bases.
+
+```{r}
+read_no = 10^6
+read_len = 50
+total_base = read_no * read_len
+(error_base = total_base * Prob)
+```
+
+Given the error rate above, we have **3972** error bases in total. This would not concern me because it is a relative small error rate when thinking of SNPs make up 0.1% in a person's genome. And the base call error could be adjusted with a relative high read depth.
+
+##Exercises
+###1. Download more FASTQ files from the Gierlinski data set so that you have all the technical replicates for 3 WT and 3 SNF2 samples (6*7 FASTQ files). Place each set of 7 technical replicates into one sensibly named folder respectively.
+
+###2. Write a for-loop that will run FastQC on all (6*7) of the FASTQ files that you previously downloaded from the Gierlinski dataset. Select one sample for which you write an additional for-loop that will:
+a. run TrimGalore
+b. run FastQC on the trimmed datasets.
+
+###3. Describe one detail of the QC results that changes after TrimGalore and one result that stays the same and explain why.
+
+###4. Combine the initial FastQC results for all 6*7 FASTQC files into one document using MultiQC. Export one image of either of the results where the SNF2 samples are highlighted in a different color than the WT samples and add it to this report.
+
+###5. Based on the QC, would you be justified in combining any of the FASTQ files given that they are technical replicates?
+
+###6. Even if the answer to the previous question is "no", what commands would you use to combine the several FASTQ files into one?
+
+###7. If you had to determine the version of the Sanger quality score encoding used in a given FASTQ file without the help of FastQC, what would you do?
+
+##Project work
+###1. Expand your project ideas. Come up with at least one specific hypothesis that you want to test.
+
+###2. Specify the data you will need.
+a. Locate potential datasets and describe them.
+b. Think about possible biase or technical problems that you might run into if you were to use these data.
