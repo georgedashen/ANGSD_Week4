@@ -163,7 +163,19 @@ If the maximum falls in the range of [63, 74], then the data is encoded by Phred
 
 ##Project work
 ###1. Expand your project ideas. Come up with at least one specific hypothesis that you want to test.
+Thanks to Merv's opinion and suggestion upon my proposal in last homework about gene-fusion, I don't think I will consider doing with gene-fusion anymore. Inspired by Luce on last Tuesday, I decided to work on RNA-Seq based on an article I found.
+
+The new idea is to identify genes that are most sensitive to a drug called dbcAMP (a cAMP activator) which can be used to treat glioma (a type of tumor that starts in the glial cells of the brain or the spine). 
+
+Based on the samples taken from different intervals after dbcAMP treatment, I want to first determine whether a certain cell line differentiate (show drug resistence) or not, using RNA-seq data. Then go on to analyze how gene expression differ along time. Based on the relationship between resistent and non-resistent cell line, dynamic expression changes of resistent cell line, try to identify the top ranked sensitive genes.
+
+I may try to understand the methods in the article first, and since the author points out the procedure and the prediction model can be applied to other case, I may try to find another time course dataset and apply the procedure to it.
 
 ###2. Specify the data you will need.
-a. Locate potential datasets and describe them.
-b. Think about possible biase or technical problems that you might run into if you were to use these data.
+####a. Locate potential datasets and describe them.
+In the article, it provides an accession number GSE128722, that would be a great starting point. It is deposited in Gene Expression Omnibus (GEO) database. If I were to find another case to apply the methods, I may find something useful in GEO too.
+
+####b. Think about possible biase or technical problems that you might run into if you were to use these data.
+By inspecting the dataset the paper provides, it totally has 15 FASTQ files, including 3 cell lines, each with 5 RNA-seq data sampling from 0-48 h after treatment. There is no biological nor technical replicates, so I may not able to validate the data even they are of good quality.
+
+
