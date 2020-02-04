@@ -321,6 +321,15 @@ cd ../</code></pre>
 <div id="even-if-the-answer-to-the-previous-question-is-no-what-commands-would-you-use-to-combine-the-several-fastq-files-into-one" class="section level3">
 <h3>6. Even if the answer to the previous question is “no”, what commands would you use to combine the several FASTQ files into one?</h3>
 <p>Carefully select which files we choose to combine based on the total quality control results. We can first pre-set that each samples should have the same amount of files to be combined. Then by inspecting the FastQC report, choose those with the highest quality, then combine them.</p>
+<div id="correction-something-i-just-forgot-to-finish" class="section level4">
+<h4>Correction (something I just forgot to finish)</h4>
+<pre><code>for f in WT_1 WT_2 WT_3 SNF2_1 SNF2_2 SNF2_3
+do
+cd ${f}
+cat $(ls | egrep '\.fastq\.gz$') &gt; ${f}_combined.fastq.gz
+cd ../
+done</code></pre>
+</div>
 </div>
 <div id="if-you-had-to-determine-the-version-of-the-sanger-quality-score-encoding-used-in-a-given-fastq-file-without-the-help-of-fastqc-what-would-you-do" class="section level3">
 <h3>7. If you had to determine the version of the Sanger quality score encoding used in a given FASTQ file without the help of FastQC, what would you do?</h3>
